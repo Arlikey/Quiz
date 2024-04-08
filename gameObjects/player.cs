@@ -27,7 +27,7 @@ namespace Quiz.gameObjects
         public void ShowPreviousQuizResults()
         {
             Console.Clear();
-            Console.WriteLine($"Прошлые викторины для пользователя {UserData.Login}:\n");
+            Console.WriteLine($"Прошлые викторины пользователя {UserData.Login}:\n");
             foreach (var result in PreviousQuizResults)
             {
                 Console.WriteLine($"\tКатегория: {result.Category} | Счет: {result.Score}");
