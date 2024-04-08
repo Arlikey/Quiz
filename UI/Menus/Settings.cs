@@ -17,6 +17,11 @@ namespace Quiz.UI.Menus
 
             """;
         string[] menuItems = { "Изменить пароль", "Изменить дату рождения", "Назад"};
+
+        public Settings(ConsoleManager consoleManager, UserAuthentication userAuthentication) : base(consoleManager, userAuthentication)
+        {
+        }
+
         public void StartMenu()
         {
 
@@ -37,10 +42,10 @@ namespace Quiz.UI.Menus
             switch (selectedItemIndex)
             {
                 case 0:
-                    UserAuthentication.ChangePassword();
+                    userAuthentication.ChangePassword(consoleManager.EnterPassword());
                     break;
                 case 1:
-                    UserAuthentication.ChangeBirthdate();
+                    userAuthentication.ChangeBirthdate(consoleManager.EnterBirthdate());
                     break;
                 case 2:
                     isBack = true;

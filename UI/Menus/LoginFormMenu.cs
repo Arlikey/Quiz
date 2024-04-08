@@ -1,4 +1,5 @@
-﻿using Quiz.scripts;
+﻿using Quiz.gameObjects;
+using Quiz.scripts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,6 +20,11 @@ namespace Quiz.UI.Menus
 
             """;
         string[] menuItems = { "Войти", "Зарегистрироваться", "Выход" };
+
+        public LoginFormMenu(ConsoleManager consoleManager, UserAuthentication userAuthentication) : base(consoleManager, userAuthentication)
+        {
+        }
+
         public void StartMenu()
         {
 
@@ -37,13 +43,31 @@ namespace Quiz.UI.Menus
             switch (selectedItemIndex)
             {
                 case 0:
-                    if (UserAuthentication.Login())
+                    if (userAuthentication.Login(consoleManager.EnterLogin(), consoleManager.EnterPassword()))
                     {
-                        new MainMenu().StartMenu();
+                        new MainMenu(consoleManager, userAuthentication).StartMenu();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Данного пользователя не существует. Повторите попытку!\nДля продолжения нажмите любую клавишу...");
+                        Console.ReadKey();
                     }
                     break;
                 case 1:
-                    UserAuthentication.Register();
+                    string login = consoleManager.EnterLogin();
+                    string password = consoleManager.EnterPassword();
+                    DateOnly birthdate = consoleManager.EnterBirthdate();
+                    UserLoginData userLoginData = new UserLoginData() { Login = login, Password = password, Birthdate = birthdate };
+                    if (userAuthentication.Register(userLoginData))
+                    {
+                        Console.WriteLine("Вы успешно зарегистрировались!\nДля продолжения нажмите любую клавишу...");
+                        Console.ReadKey();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Пользователь с таким логином уже существует. Повторите попытку!\nДля продолжения нажмите любую клавишу...");
+                        Console.ReadKey();
+                    }
                     break;
                 case 2:
                     Environment.Exit(0);

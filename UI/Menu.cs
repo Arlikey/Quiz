@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quiz.scripts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,17 @@ namespace Quiz.UI
 {
     internal class Menu
     {
+        protected ConsoleManager consoleManager;
+        protected UserAuthentication userAuthentication;
         public int selectedItemIndex = 0;
         protected string menuText;
         protected string[] menuItems;
+
+        public Menu(ConsoleManager consoleManager, UserAuthentication userAuthentication)
+        {
+            this.consoleManager = consoleManager;
+            this.userAuthentication = userAuthentication;
+        }
 
         public void DisplayMenu(string menuText, string[] menuItems)
         {
